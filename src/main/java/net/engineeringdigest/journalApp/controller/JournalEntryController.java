@@ -39,4 +39,5 @@ public class JournalEntryController {
     public JournalEntry updateJournalEntryById(@PathVariable Long id, @RequestBody JournalEntry journalEntry) {
         return journalEntries.put(id, journalEntry);
     }
+    // chacking git
 }
