@@ -30,7 +30,7 @@ public class UserController {
         try {
             userInDB.setUsername(!user.getUsername().isEmpty() ? user.getUsername() : userInDB.getUsername());
             userInDB.setPassword(!user.getPassword().isEmpty() ? user.getPassword() : userInDB.getPassword());
-            userService.saveUser(userInDB);
+            userService.saveNewUser(userInDB);
             return new ResponseEntity<>(userInDB, HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

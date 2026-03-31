@@ -5,8 +5,6 @@ import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,11 +46,21 @@ public class JournalEntryService {
         return journalEntryRepository.findById(id);
     }
 
-    public void deleteJournalEntryById(ObjectId id,  String username) {
-        User user = userService.findByUsername(username);
-        user.getJournalEntries().removeIf(journalEntry -> journalEntry.getId().equals(id));
-        userService.saveUser(user);
-        journalEntryRepository.deleteById(id);
+    @Transactional
+    public boolean deleteJournalEntryById(ObjectId id,  String username) {
+        boolean isRemoved = false;
+        try {
+            User user = userService.findByUsername(username);
+            isRemoved = user.getJournalEntries().removeIf(journalEntry -> journalEntry.getId().equals(id));
+            if (isRemoved) {
+                userService.saveUser(user);
+                journalEntryRepository.deleteById(id);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("An error occurred while deleting en entry", e);
+        }
+        return isRemoved;
     }
 }
 
