@@ -20,7 +20,7 @@ public class PublicController {
 
     @GetMapping("/health-check")
     public String healthCheck(){
-        return passwordEncoder.toString();
+        return "Ok";
     }
 
     @PostMapping("/create-user")
