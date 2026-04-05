@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.service;
 
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
 import org.bson.types.ObjectId;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
+@Slf4j
 public class UserService {
 
     @Autowired
@@ -28,6 +30,11 @@ public class UserService {
             userRepository.save(user);
             return true;
         } catch (Exception e) {
+            log.trace("Error occurred while saving the new user {} :", user.getUsername());
+            log.debug("Error occurred while saving the new user {} :", user.getUsername());
+            log.info("Error occurred while saving the new user {} :", user.getUsername());
+            log.warn("Error occurred while saving the new user {} :", user.getUsername());
+            log.error("Error occurred while saving the new user {} :", user.getUsername());
             return false;
         }
     }
