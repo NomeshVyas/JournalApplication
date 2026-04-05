@@ -42,7 +42,7 @@ public class UserServiceTests {
 //            "Shyam",
 //    })
     @ValueSource(strings = {
-            "ram",
+            "Shyam2.O",
             "Shyam",
             "Admin"
     })

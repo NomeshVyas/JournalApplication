@@ -3,18 +3,19 @@ package net.engineeringdigest.journalApp.service;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
+@ActiveProfiles("dev")
 public class UserDetailServiceImplTests {
     @InjectMocks
     private UserDetailServiceImpl userDetailServiceImpl;
