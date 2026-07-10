@@ -15,6 +15,9 @@
 	<description>E2EE Journal App</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<sonar.organization>nomeshvyas</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
+		<sonar.projectKey>nomeshvyas_JournalApplication</sonar.projectKey>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -47,6 +50,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>3.7.0.1746</version>
 			</plugin>
 		</plugins>
 	</build>
