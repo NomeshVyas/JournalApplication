@@ -39,4 +39,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: mvn -B clean verify sonar:sonar
