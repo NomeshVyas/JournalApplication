@@ -1,6 +1,5 @@
 package net.engineeringdigest.journalApp.service;
 
-import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.JournalEntryRepository;
@@ -16,7 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@Slf4j
 public class JournalEntryService {
     @Autowired
     private JournalEntryRepository journalEntryRepository;
@@ -63,7 +61,7 @@ public class JournalEntryService {
                 journalEntryRepository.deleteById(id);
             }
         } catch (Exception e) {
-            log.error("Error: ", e);
+            System.out.println(e.getMessage());
             throw new RuntimeException("An error occurred while deleting en entry", e);
         }
         return isRemoved;
