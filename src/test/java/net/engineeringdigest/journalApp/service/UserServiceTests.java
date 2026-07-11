@@ -25,34 +25,31 @@ public class UserServiceTests {
     private UserService userService;
 
     @BeforeAll
-    public static void staring(){
+    static void staring(){
         System.out.println("Starting testing...");
     }
 
     @AfterAll
-    public static void end(){
+    static void end(){
         System.out.println("Ending testing...");
     }
 
 //    @Test
-//    @Disabled
+    @Disabled("Hits real MongoDB Atlas")
     @ParameterizedTest
-//    @CsvSource({
-//            "ram",
-//            "Shyam",
-//    })
     @ValueSource(strings = {
             "Shyam2.O",
             "Shyam",
             "Admin"
     })
-    public void testFindByUsername(String username) {
+    void testFindByUsername(String username) {
         assertNotNull(userRepository.findByUsername(username));
     }
 
+    @Disabled("Hits real MongoDB Atlas - fails on re-run due to duplicate user. TODO: fix with cleanup or embedded Mongo")
     @ParameterizedTest
     @ArgumentsSource(UserArgumentsProvider.class)
-    public void testCreateNewUser(User user) {
+    void testCreateNewUser(User user) {
         assertTrue(userService.saveNewUser(user));
     }
 }

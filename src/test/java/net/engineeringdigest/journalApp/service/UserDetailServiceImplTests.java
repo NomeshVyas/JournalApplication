@@ -23,13 +23,6 @@ public class UserDetailServiceImplTests {
     @Mock
     private UserRepository userRepository;
 
-    /* initMocks is deprecated so we should use @ExtendWith(MockitoExtension.class)
-    @BeforeEach
-    void setUp(){
-        MockitoAnnotations.initMocks(this);
-    }
-    */
-
     @Test
     void loadUserByUsernameTest(){
         when(userRepository.findByUsername(ArgumentMatchers.anyString())).thenReturn(User.builder().username("Shyam").password("123").roles(new ArrayList<>()).build());
