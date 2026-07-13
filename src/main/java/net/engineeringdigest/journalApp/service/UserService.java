@@ -17,16 +17,19 @@ import java.util.Optional;
 @Slf4j
 public class UserService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
+
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+    }
 
     public boolean saveNewUser(User user) {
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setRoles(Arrays.asList("USER"));
+            user.setRoles(List.of("USER"));
             userRepository.save(user);
             return true;
         } catch (Exception e) {

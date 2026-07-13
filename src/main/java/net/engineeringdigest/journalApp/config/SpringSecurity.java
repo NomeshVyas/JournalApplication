@@ -15,8 +15,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurity extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private UserDetailServiceImpl userDetailsService;
+
+    private final UserDetailServiceImpl userDetailsService;
+
+    public SpringSecurity(UserDetailServiceImpl userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

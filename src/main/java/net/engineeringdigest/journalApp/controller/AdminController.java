@@ -12,8 +12,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    UserService userService;
+
+    private final UserService userService;
+
+    public AdminController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/all-users")
     public ResponseEntity<?> getAllUsers() {

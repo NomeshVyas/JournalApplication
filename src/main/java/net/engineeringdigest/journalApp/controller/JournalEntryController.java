@@ -1,11 +1,11 @@
 package net.engineeringdigest.journalApp.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.engineeringdigest.journalApp.entity.JournalEntry;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.service.JournalEntryService;
 import net.engineeringdigest.journalApp.service.UserService;
 import org.bson.types.ObjectId;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,17 +13,20 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("/journal")
 public class JournalEntryController {
 
-    @Autowired
-    private JournalEntryService journalEntryService;
-    @Autowired
-    private UserService userService;
+    private final JournalEntryService journalEntryService;
+    private final UserService userService;
+
+    public JournalEntryController(JournalEntryService journalEntryService, UserService userService) {
+        this.journalEntryService = journalEntryService;
+        this.userService = userService;
+    }
 
     @GetMapping
     public ResponseEntity<?> getAllJournalEntriesOfUser() {
@@ -42,7 +45,6 @@ public class JournalEntryController {
         try {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             String username = authentication.getName();
-            User user = userService.findByUsername(username);
             journalEntryService.saveEntry(journalEntry, username);
             return new ResponseEntity<>(journalEntry, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -91,7 +93,7 @@ public class JournalEntryController {
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception e) {
-            System.out.println("Exception: " + e.getMessage());
+            log.error("Exception: {}", e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
