@@ -12,7 +12,7 @@ public class WeatherService {
 
     @Value("${WeatherStack.api.key}")
     private String WEATHERSTACK_API_KEY;
-    private static final String WEATHERSTACK_API = "http://api.weatherstack.com/current?access_key=ACCESS_KEY&query=CITY";
+    private static final String WEATHER_STACK_API = "http://api.weatherstack.com/current?access_key=ACCESS_KEY&query=CITY";
 
     private final RestTemplate restTemplate;
 
@@ -21,7 +21,7 @@ public class WeatherService {
     }
 
     public WeatherResponse getWeather(String city) {
-        String finalApi = WEATHERSTACK_API.replace("CITY", city).replace("ACCESS_KEY", WEATHERSTACK_API_KEY);
+        String finalApi = WEATHER_STACK_API.replace("CITY", city).replace("ACCESS_KEY", WEATHERSTACK_API_KEY);
         ResponseEntity<WeatherResponse> response = restTemplate.exchange(finalApi, HttpMethod.GET, null, WeatherResponse.class);
         return response.getBody();
     }
