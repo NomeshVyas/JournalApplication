@@ -7,11 +7,11 @@ spring:
       password: ${MONGODB_PASSWORD}
       auto-index-creation: true
 
-WeatherStack:
-  api:
-    key: ${WEATHERSTACK_API_KEY}
-
 server:
   port: 8080
   servlet:
     context-path: /journal-app
+
+WeatherStack:
+  api:
+    key: ${WEATHERSTACK_API_KEY}
