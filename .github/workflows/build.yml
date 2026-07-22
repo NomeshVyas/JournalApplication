@@ -24,7 +24,7 @@ jobs:
       - name: Set up JDK 17 (for Sonar Scanner)
         uses: actions/setup-java@v4
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
       - name: Cache SonarCloud packages
         uses: actions/cache@v4
@@ -45,4 +45,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
-        run: mvn sonar:sonar
+        run: mvn clean verify sonar:sonar
