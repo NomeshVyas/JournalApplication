@@ -6,6 +6,17 @@ spring:
       username: ${MONGODB_USERNAME}
       password: ${MONGODB_PASSWORD}
       auto-index-creation: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nomeshdadhich9057@gmail.com
+    password: ${MAIL_APP_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8080
