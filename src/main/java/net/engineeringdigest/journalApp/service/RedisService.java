@@ -10,15 +10,16 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class RedisService {
-    private final RedisTemplate<Object, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    public RedisService(RedisTemplate<Object, Object> redisTemplate) {
+    public RedisService(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
     public <T> T get(String key, Class<T> entityClass) {
         try {
             Object obj = redisTemplate.opsForValue().get(key);
+            if (obj == null) return null;
             ObjectMapper mapper = new ObjectMapper();
             return mapper.readValue(obj.toString(), entityClass);
         } catch (Exception e) {

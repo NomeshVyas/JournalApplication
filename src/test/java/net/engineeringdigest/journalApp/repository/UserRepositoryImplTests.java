@@ -1,5 +1,6 @@
 package net.engineeringdigest.journalApp.repository;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,6 @@ public class UserRepositoryImplTests {
 
     @Test
     void testGetSentimentAnalysis() {
-        userRepository.getUserForSentimentAnalysis();
+        Assertions.assertNotNull(userRepository.getUserForSentimentAnalysis());
     }
 }

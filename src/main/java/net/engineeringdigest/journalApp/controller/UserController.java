@@ -4,7 +4,6 @@ import net.engineeringdigest.journalApp.api.response.WeatherResponse;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.service.UserService;
 import net.engineeringdigest.journalApp.service.WeatherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -53,13 +52,15 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<String> greeting() {
+    public ResponseEntity<String> greeting(@RequestParam(required = false) String city) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String city = "Mumbai";
-        WeatherResponse weatherResponse = weatherService.getWeather(city);
         String weatherInfoMessage = "";
-        if (weatherResponse != null)
-            weatherInfoMessage = ", today Weather feels like " + weatherResponse.getCurrent().getFeelsLike() + " in " + city;
+        if (city != null && ! city.isBlank()){
+            WeatherResponse weatherResponse = null;
+            weatherResponse = weatherService.getWeather(city.toLowerCase());
+            if (weatherResponse != null)
+                weatherInfoMessage = ", today Weather feels like " + weatherResponse.getCurrent().getFeelsLike() + " in " + city;
+        }
 
         return new ResponseEntity<>("Hi " + authentication.getName() + weatherInfoMessage, HttpStatus.OK);
     }
